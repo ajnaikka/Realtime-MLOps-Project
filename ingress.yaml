@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: churn-predictor-ingress
+  namespace: ml  # Assuming this from your inference.yaml
+  annotations:
+    # Use the AWS ALB Ingress Controller
+    kubernetes.io/ingress.class: alb
+    # Create an internet-facing Application Load Balancer
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    # Use IP mode if using AWS VPC CNI, else use 'instance'
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: churn-predictor-predictor
+                port:
+                  number: 80
