@@ -1,4 +1,6 @@
-data/
+data/*
+!data/**/*.dvc
+!data/**/.gitignore
 models/*.pkl
 *.pyc
 __pycache__/

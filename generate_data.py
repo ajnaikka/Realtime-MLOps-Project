@@ -1,4 +1,5 @@
 """Generate synthetic churn dataset"""
+import os
 import pandas as pd
 import numpy as np
 
@@ -25,6 +26,7 @@ churn_prob = (
 data['churn'] = (np.random.random(n_samples) < churn_prob).astype(int)
 
 df = pd.DataFrame(data)
+os.makedirs('data', exist_ok=True)
 df.to_csv('data/churn_data.csv', index=False)
 print(f"Generated {len(df)} samples")
 print(f"Churn rate: {df['churn'].mean():.2%}")
